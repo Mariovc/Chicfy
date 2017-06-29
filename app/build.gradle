@@ -1,11 +1,22 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+  }
+  dependencies {
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
+  }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
   compileSdkVersion 25
   buildToolsVersion "25.0.2"
   defaultConfig {
     applicationId "com.stanete.chicfy"
-    minSdkVersion 21
+    minSdkVersion 16
     targetSdkVersion 25
     versionCode 1
     versionName "1.0"
@@ -16,15 +27,56 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+    lintOptions {
+      abortOnError false
+    }
   }
 }
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
+
+
   compile 'com.android.support:appcompat-v7:25.3.1'
-  compile 'com.android.support.constraint:constraint-layout:1.0.2'
-  testCompile 'junit:junit:4.12'
+  compile 'com.android.support:design:25.3.1'
+  compile 'com.squareup.picasso:picasso:2.5.2'
+  compile 'com.jakewharton:butterknife:7.0.1'
+  compile 'com.google.dagger:dagger:2.0.2'
+  apt 'com.google.dagger:dagger-compiler:2.0.2'
+  compile 'org.glassfish:javax.annotation:10.0-b28'
+
+  compile 'com.squareup.okhttp:okhttp:2.5.0'
+  compile 'com.squareup.retrofit2:retrofit:2.0.0'
+  compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+  compile 'com.squareup.okio:okio:1.0.0'
+
+  testCompile 'junit:junit:4.11'
+  testCompile 'org.mockito:mockito-all:1.9.5'
+  testCompile 'com.squareup.okhttp:mockwebserver:2.5.0'
+  testCompile 'commons-io:commons-io:2.4'
+
+  androidTestCompile 'com.github.fabioCollini:DaggerMock:0.4'
+  androidTestApt 'com.google.dagger:dagger-compiler:2.0.2'
+  androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+  androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
+    exclude group: 'org.hamcrest', module: 'hamcrest-core'
+  }
+  androidTestCompile 'com.android.support.test:runner:0.4.1'
+  androidTestCompile 'com.android.support.test:rules:0.4.1'
+  androidTestCompile 'org.mockito:mockito-core:1.10.19'
+  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1') {
+    exclude group: 'javax.inject', module: 'javax.inject'
+    exclude group: 'com.squareup', module: 'javawriter'
+  }
+  androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
+    exclude module: 'support-annotations'
+    exclude module: 'recyclerview-v7'
+    exclude module: 'support-v4'
+  }
+  androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.1')
 }
+
+configurations.all {
+  resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
+}
+
