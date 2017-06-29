@@ -1,7 +1,8 @@
-package com.stanete.chicfy;
+package com.stanete.chicfy.ui.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.stanete.chicfy.R;
 
 public class UserDetailsActivity extends AppCompatActivity {
 

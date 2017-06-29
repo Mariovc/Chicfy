@@ -1,17 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.view.MainActivity"
     >
 
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Hello World!"
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      android:elevation="4dp"
+      android:theme="@style/AppTheme.AppBarOverlay"
+      app:popupTheme="@style/AppTheme.PopupOverlay"
+      tools:targetApi="lollipop"
       />
 
-</FrameLayout>
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:animateLayoutChanges="true"
+      >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <LinearLayout
+        android:id="@+id/fl_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        >
+
+      <TextView
+          android:id="@+id/tv_error"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:gravity="center"
+          android:maxWidth="200dp"
+          android:text="@string/error_loading_users"
+          android:textColor="@color/primary_text"
+          android:textSize="16sp"
+          />
+
+      <Button
+          android:id="@+id/btn_retry"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/try_again"
+          />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fl_empty_case"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:gravity="center"
+          android:maxWidth="200dp"
+          android:text="@string/empty_case_users"
+          android:textColor="@color/primary_text"
+          android:textSize="20sp"
+          />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:visibility="visible"
+        >
+
+      <ProgressBar
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          style="?android:attr/progressBarStyle"
+          />
+    </FrameLayout>
+
+  </FrameLayout>
+
+
+</LinearLayout>

@@ -1,3 +1,10 @@
 <resources>
   <string name="app_name">RandomUsers</string>
+
+  <string name="error_loading_users">There has been an error loading the users.</string>
+  <string name="empty_case_users">¯\\_(ツ)_/¯</string>
+  <string name="error_no_internet">Stop stealing internet from your neighbour.</string>
+  <string name="try_again">Try again</string>
+  <string name="hire_me">Hire me</string>
+
 </resources>
