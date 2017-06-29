@@ -1,4 +1,4 @@
-package com.stanete.chicfy.view;
+package com.stanete.chicfy.ui.view;
 
 import android.app.Application;
 
