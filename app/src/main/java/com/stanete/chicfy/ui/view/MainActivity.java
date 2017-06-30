@@ -11,9 +11,12 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.stanete.chicfy.R;
+import com.stanete.chicfy.ui.presenter.UsersPresenter;
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
+
+  @Inject UsersPresenter usersPresenter;
 
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.recycler_view) RecyclerView recyclerView;

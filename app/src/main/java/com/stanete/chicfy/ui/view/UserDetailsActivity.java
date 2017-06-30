@@ -3,8 +3,13 @@ package com.stanete.chicfy.ui.view;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.stanete.chicfy.R;
+import com.stanete.chicfy.ui.presenter.UserDetailsPresenter;
+import com.stanete.chicfy.ui.presenter.UsersPresenter;
+import javax.inject.Inject;
 
 public class UserDetailsActivity extends AppCompatActivity {
+
+  @Inject UserDetailsPresenter userDetailsPresenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
