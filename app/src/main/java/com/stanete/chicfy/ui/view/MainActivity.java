@@ -11,6 +11,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.stanete.chicfy.R;
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
