@@ -14,7 +14,6 @@ public class UsersRepository {
   public UsersRepository(UsersApiClient usersApiClient, UserPreferences userPreferences) {
     this.usersApiClient = usersApiClient;
     this.userPreferences = userPreferences;
-
   }
 
 }
