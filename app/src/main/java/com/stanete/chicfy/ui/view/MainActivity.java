@@ -17,6 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 import com.stanete.chicfy.R;
 import com.stanete.chicfy.UsersApplication;
 import com.stanete.chicfy.model.User;
@@ -29,7 +30,6 @@ import rx.functions.Action1;
 public class MainActivity extends AppCompatActivity implements UsersPresenter.View {
 
   @Inject UsersPresenter presenter;
-  @Bind(R.id.et_filter) EditText etFilter;
   private UsersAdapter adapter;
 
   @Bind(R.id.toolbar) Toolbar toolbar;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements UsersPresenter.Vi
   @Bind(R.id.fl_error) LinearLayout flError;
   @Bind(R.id.fl_empty_case) LinearLayout flEmptyCase;
   @Bind(R.id.fl_loading) FrameLayout flLoading;
+  @Bind(R.id.et_filter) EditText etFilter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -81,11 +82,12 @@ public class MainActivity extends AppCompatActivity implements UsersPresenter.Vi
   }
 
   private void setupFilter() {
-    RxTextView.textChanges(etFilter)
+    RxTextView.afterTextChangeEvents(etFilter)
         .debounce(1, TimeUnit.SECONDS)
-        .subscribe(new Action1<CharSequence>() {
-          @Override public void call(CharSequence charSequence) {
-            presenter.onFilterChanged(charSequence.toString());
+        .skip(1)
+        .subscribe(new Action1<TextViewAfterTextChangeEvent>() {
+          @Override public void call(TextViewAfterTextChangeEvent textViewAfterTextChangeEvent) {
+            presenter.onFilterChanged(textViewAfterTextChangeEvent.view().getText().toString());
           }
         });
   }
