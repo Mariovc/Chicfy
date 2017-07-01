@@ -1,11 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.stanete.chicfy.UserDetailsActivity"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.stanete.chicfy.ui.view.UserDetailsActivity"
     >
 
-</FrameLayout>
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      android:elevation="4dp"
+      android:theme="@style/AppTheme.AppBarOverlay"
+      app:popupTheme="@style/AppTheme.PopupOverlay"
+      tools:targetApi="lollipop"
+      />
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        >
+
+      <com.facebook.drawee.view.SimpleDraweeView
+          android:id="@+id/sdv_picture"
+          android:layout_width="@dimen/user_avatar_size"
+          android:layout_height="@dimen/user_avatar_size"
+          fresco:roundAsCircle="true"
+          android:layout_gravity="center_horizontal"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:text="@string/first_name"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          />
+
+      <TextView
+          android:id="@+id/tv_first_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="16sp"
+          tools:text="David"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:text="@string/last_name"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          />
+
+      <TextView
+          android:id="@+id/tv_last_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="16sp"
+          tools:text="Stanete"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:text="@string/gender"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          />
+
+      <TextView
+          android:id="@+id/tv_gender"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="16sp"
+          tools:text="male"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:text="@string/email"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          />
+
+      <TextView
+          android:id="@+id/tv_email"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="16sp"
+          tools:text="davidstanete@gmail.com"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:text="@string/location"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          />
+
+      <TextView
+          android:id="@+id/tv_location"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="16sp"
+          tools:text="California, Sésame street"
+          />
+
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:text="@string/registered_on"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          />
+
+      <TextView
+          android:id="@+id/tv_registered_on"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="16sp"
+          tools:text="2013-02-20 03:18:08"
+          />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fl_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:gravity="center"
+          android:maxWidth="200dp"
+          android:text="@string/error_loading_user"
+          android:textColor="@color/primary_text"
+          android:textSize="16sp"
+          />
+
+      <Button
+          android:id="@+id/btn_retry"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/try_again"
+          />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:visibility="invisible"
+        >
+
+      <ProgressBar
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          style="?android:attr/progressBarStyle"
+          />
+    </FrameLayout>
+
+  </FrameLayout>
+
+
+</LinearLayout>

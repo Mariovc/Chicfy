@@ -1,3 +1,24 @@
 <resources>
   <string name="app_name">RandomUsers</string>
+
+  <string name="error_loading_users">There has been an error loading the users.</string>
+  <string name="error_loading_user">There has been an error loading this user.</string>
+  <string name="empty_case_users">¯\\_(ツ)_/¯</string>
+  <string name="error_no_internet">Stop stealing internet from your neighbour.</string>
+  <string name="try_again">Try again</string>
+  <string name="hire_me">Hire me</string>
+  <string name="load_more_users">Load more users</string>
+  <string name="error_loading_more_users">There has been an error loading more users.</string>
+  <string name="error_no_internet_loading_more_users">There has been an error loading more users because you are stealing internet from your neighbour.</string>
+  <string name="user_deleted">That user has been deleted forever.</string>
+  <string name="error_deleting_user">There has been an error deleting that user.</string>
+  <string name="first_name">First name:</string>
+  <string name="last_name">Last name:</string>
+  <string name="email">Email:</string>
+  <string name="gender">Gender:</string>
+  <string name="location">Location:</string>
+  <string name="registered_on">Registered on:</string>
+  <string name="filter_users">Type something to filter users</string>
+
+
 </resources>
