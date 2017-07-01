@@ -12,6 +12,7 @@ public class User {
   private Login login;
   private String registered;
   private Picture picture;
+  private String phone;
 
   public String getGender() {
     return gender;
@@ -67,5 +68,13 @@ public class User {
 
   public void setPicture(Picture picture) {
     this.picture = picture;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 }

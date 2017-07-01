@@ -1,7 +1,7 @@
 package com.stanete.chicfy.di;
 
 import android.content.Context;
-import com.stanete.chicfy.RandomUsersApplication;
+import com.stanete.chicfy.UsersApplication;
 import com.stanete.chicfy.data.UserPreferences;
 import com.stanete.chicfy.data.UsersApiClient;
 import com.stanete.chicfy.model.UsersRepository;
@@ -14,9 +14,9 @@ import javax.inject.Singleton;
  */
 @Module public class MainModule {
 
-  private final RandomUsersApplication application;
+  private final UsersApplication application;
 
-  public MainModule(RandomUsersApplication application) {
+  public MainModule(UsersApplication application) {
     this.application = application;
   }
 

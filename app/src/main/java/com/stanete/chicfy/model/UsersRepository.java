@@ -35,7 +35,7 @@ public class UsersRepository {
     }
 
     try {
-      List<User> pagedUsers = usersApiClient.getUsers(page, RESULTS);
+      List<User> pagedUsers = usersApiClient.getUsers(RESULTS, page);
 
       // TODO Make sure there are no duplicates.
       // TODO Remove deleted users.

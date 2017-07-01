@@ -6,5 +6,11 @@
   <string name="error_no_internet">Stop stealing internet from your neighbour.</string>
   <string name="try_again">Try again</string>
   <string name="hire_me">Hire me</string>
+  <string name="load_more_users">Load more users</string>
+  <string name="error_loading_more_users">There has been an error loading more users.</string>
+  <string name="error_no_internet_loading_more_users">There has been an error loading more users because you are stealing internet from your neighbour.</string>
+  <string name="user_deleted">That user has been deleted forever.</string>
+  <string name="error_deleting_user">There has been an error deleting that user.</string>
+
 
 </resources>

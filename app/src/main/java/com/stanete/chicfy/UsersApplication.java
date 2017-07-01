@@ -10,7 +10,7 @@ import com.stanete.chicfy.di.MainModule;
 /**
  * Created by @stanete
  */
-public class RandomUsersApplication extends Application {
+public class UsersApplication extends Application {
 
   private MainComponent mainComponent;
 
