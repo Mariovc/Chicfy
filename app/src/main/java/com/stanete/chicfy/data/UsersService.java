@@ -10,6 +10,6 @@ import retrofit2.http.Query;
  */
 public interface UsersService {
 
-  @GET(UsersApiClientConfig.BASE_ENDPOINT) Call<Users> getUsers(
-      @Query(UsersApiClientConfig.RESULTS) int results, @Query(UsersApiClientConfig.PAGE) int page);
+  @GET("./") Call<Users> getUsers(@Query(UsersApiClientConfig.RESULTS) int results,
+      @Query(UsersApiClientConfig.PAGE) int page);
 }
