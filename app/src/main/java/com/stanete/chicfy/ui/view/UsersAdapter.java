@@ -22,6 +22,7 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private final UsersPresenter presenter;
   private final List<User> users;
   private final LoadMoreUsers loadMoreUsers;
+  private boolean filtered = false;
 
   public UsersAdapter(UsersPresenter presenter) {
     this.presenter = presenter;
@@ -29,9 +30,10 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     this.loadMoreUsers = new LoadMoreUsers();
   }
 
-  public void addUsers(List<User> users) {
+  public void addUsers(List<User> users, boolean filtered) {
     this.users.clear();
     this.users.addAll(users);
+    this.filtered = filtered;
   }
 
   public void addMoreUsers(List<User> users) {
@@ -44,10 +46,10 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   }
 
   @Override public int getItemViewType(int position) {
-    if (position == users.size()) {
-      return VIEW_TYPE_LOAD_MORE_USERS;
-    } else {
+    if (filtered || position != users.size()) {
       return VIEW_TYPE_USER;
+    } else {
+      return VIEW_TYPE_LOAD_MORE_USERS;
     }
   }
 
@@ -77,6 +79,10 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   }
 
   @Override public int getItemCount() {
-    return users.size() + 1;
+    if (filtered) {
+      return users.size();
+    } else {
+      return users.size() + 1;
+    }
   }
 }

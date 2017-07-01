@@ -28,8 +28,6 @@ public class GetUsersByFilter extends UseCase {
           @Override public void run() {
             if (result.getError() == null) {
               callback.onUsersLoaded(result.getValue());
-            } else if (result.getError().equals(ResultError.NO_INTERNET_CONNECTION)) {
-              callback.onNetworkError();
             } else {
               callback.onUnknownError();
             }
@@ -42,8 +40,6 @@ public class GetUsersByFilter extends UseCase {
   public interface Callback {
 
     void onUsersLoaded(List<User> users);
-
-    void onNetworkError();
 
     void onUnknownError();
   }

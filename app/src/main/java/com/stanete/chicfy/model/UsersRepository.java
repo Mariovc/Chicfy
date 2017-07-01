@@ -67,6 +67,7 @@ public class UsersRepository {
   }
 
   public Result<User, ResultError> deleteUser(User user) {
+    users.remove(user);
     deletedUsers.add(user);
     userPreferences.addDeletedUser(user);
     return Result.success(user);
@@ -75,15 +76,19 @@ public class UsersRepository {
   public Result<List<User>, ResultError> getUsersByFilter(String filter) {
     List<User> filteredUsers = new ArrayList<>();
 
-    for (User user : users) {
-      if (user.getLogin().getUsername().toLowerCase().contains(filter) || user.getName()
-          .getFirst()
-          .toLowerCase()
-          .contains(filter) || user.getName().getLast().toLowerCase().contains(filter)) {
-        filteredUsers.add(user);
+    if (filter.isEmpty()) {
+      return Result.success(users);
+    } else {
+      for (User user : users) {
+        if (user.getLogin().getUsername().toLowerCase().contains(filter) || user.getName()
+            .getFirst()
+            .toLowerCase()
+            .contains(filter) || user.getName().getLast().toLowerCase().contains(filter)) {
+          filteredUsers.add(user);
+        }
       }
-    }
 
-    return Result.success(filteredUsers);
+      return Result.success(filteredUsers);
+    }
   }
 }

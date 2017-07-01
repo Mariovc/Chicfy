@@ -3,7 +3,9 @@ package com.stanete.chicfy.ui.presenter;
 import com.stanete.chicfy.model.LoadMoreUsers;
 import com.stanete.chicfy.model.User;
 import com.stanete.chicfy.usecase.DeleteUser;
+import com.stanete.chicfy.usecase.GetUserByUsername;
 import com.stanete.chicfy.usecase.GetUsers;
+import com.stanete.chicfy.usecase.GetUsersByFilter;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -13,10 +15,13 @@ import javax.inject.Inject;
 public class UsersPresenter extends Presenter<UsersPresenter.View> {
 
   private final GetUsers getUsers;
+  private final GetUsersByFilter getUsersByFilter;
   private final DeleteUser deleteUser;
 
-  @Inject public UsersPresenter(GetUsers getUsers, DeleteUser deleteUser) {
+  @Inject public UsersPresenter(GetUsers getUsers, GetUsersByFilter getUsersByFilter,
+      DeleteUser deleteUser) {
     this.getUsers = getUsers;
+    this.getUsersByFilter = getUsersByFilter;
     this.deleteUser = deleteUser;
   }
 
@@ -107,6 +112,23 @@ public class UsersPresenter extends Presenter<UsersPresenter.View> {
     }, user);
   }
 
+  public void onFilterChanged(final String filter) {
+    getUsersByFilter.execute(new GetUsersByFilter.Callback() {
+      @Override public void onUsersLoaded(List<User> users) {
+
+        if (filter.isEmpty()){
+          getView().showUsers(users);
+        } else {
+          getView().showFilteredUsers(users);
+        }
+      }
+
+      @Override public void onUnknownError() {
+        getView().showError();
+      }
+    }, filter);
+  }
+
   public interface View extends Presenter.View {
 
     void showEmptyCase();
@@ -124,6 +146,8 @@ public class UsersPresenter extends Presenter<UsersPresenter.View> {
     void showUserDeleted(User user, int position);
 
     void showUnknownErrorDeletingUser(User user);
+
+    void showFilteredUsers(List<User> users);
 
     void showUsers(List<User> users);
 

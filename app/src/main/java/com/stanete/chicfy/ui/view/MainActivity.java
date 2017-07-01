@@ -1,7 +1,6 @@
 package com.stanete.chicfy.ui.view;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,16 +16,20 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.jakewharton.rxbinding.widget.RxTextView;
 import com.stanete.chicfy.R;
 import com.stanete.chicfy.UsersApplication;
 import com.stanete.chicfy.model.User;
 import com.stanete.chicfy.ui.presenter.UsersPresenter;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import rx.functions.Action1;
 
 public class MainActivity extends AppCompatActivity implements UsersPresenter.View {
 
   @Inject UsersPresenter presenter;
+  @Bind(R.id.et_filter) EditText etFilter;
   private UsersAdapter adapter;
 
   @Bind(R.id.toolbar) Toolbar toolbar;
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements UsersPresenter.Vi
     initializePresenter();
     initializeAdapter();
     initializeRecyclerView();
+    setupFilter();
     presenter.initialize();
   }
 
@@ -73,6 +78,16 @@ public class MainActivity extends AppCompatActivity implements UsersPresenter.Vi
     recyclerView.addItemDecoration(divider);
 
     recyclerView.setAdapter(adapter);
+  }
+
+  private void setupFilter() {
+    RxTextView.textChanges(etFilter)
+        .debounce(1, TimeUnit.SECONDS)
+        .subscribe(new Action1<CharSequence>() {
+          @Override public void call(CharSequence charSequence) {
+            presenter.onFilterChanged(charSequence.toString());
+          }
+        });
   }
 
   @OnClick(R.id.btn_retry) public void onRetryClicked() {
@@ -137,8 +152,13 @@ public class MainActivity extends AppCompatActivity implements UsersPresenter.Vi
         .show();
   }
 
+  @Override public void showFilteredUsers(List<User> users) {
+    adapter.addUsers(users, true);
+    adapter.notifyDataSetChanged();
+  }
+
   @Override public void showUsers(List<User> users) {
-    adapter.addUsers(users);
+    adapter.addUsers(users, false);
     adapter.notifyDataSetChanged();
   }
 
