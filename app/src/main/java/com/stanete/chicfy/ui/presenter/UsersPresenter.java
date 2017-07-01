@@ -56,6 +56,10 @@ public class UsersPresenter extends Presenter<UsersPresenter.View> {
     }, 0);
   }
 
+  public void onRetryClicked() {
+    loadUsers();
+  }
+
   public void onLoadMoreUsersClicked(final LoadMoreUsers loadMoreUsers) {
 
     loadMoreUsers.setCurrentPage(loadMoreUsers.getCurrentPage() + 1);

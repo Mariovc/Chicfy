@@ -7,6 +7,6 @@
   <dimen name="user_row_height">100dp</dimen>
   <dimen name="load_more_users_row_height">100dp</dimen>
   <dimen name="user_row_avatar_size">60dp</dimen>
-  <dimen name="user_avatar_size">120dp</dimen>
+  <dimen name="user_avatar_size">140dp</dimen>
 
 </resources>

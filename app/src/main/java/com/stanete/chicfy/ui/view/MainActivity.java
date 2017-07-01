@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.stanete.chicfy.R;
 import com.stanete.chicfy.UsersApplication;
 import com.stanete.chicfy.model.User;
@@ -67,11 +68,15 @@ public class MainActivity extends AppCompatActivity implements UsersPresenter.Vi
     recyclerView.setHasFixedSize(true);
 
     DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-    
+
     divider.setDrawable(getResources().getDrawable(R.drawable.divider));
     recyclerView.addItemDecoration(divider);
 
     recyclerView.setAdapter(adapter);
+  }
+
+  @OnClick(R.id.btn_retry) public void onRetryClicked() {
+    presenter.onRetryClicked();
   }
 
   // region UsersPresenter.View
@@ -151,7 +156,9 @@ public class MainActivity extends AppCompatActivity implements UsersPresenter.Vi
   }
 
   @Override public void openUserDetailsScreen(User user) {
-    // TODO Open users details activity.
+    // Open user details activity.
+    startActivity(UserDetailsActivity.getCallingIntent(this,
+        user.getName().getFirst() + " " + user.getName().getLast(), user.getLogin().getUsername()));
   }
   // endregion
 }

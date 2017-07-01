@@ -15,6 +15,38 @@ public class UserDetailsPresenter extends Presenter<UserDetailsPresenter.View> {
     this.getUserByUsername = getUserByUsername;
   }
 
+  public void initialize(String username) {
+    super.initialize();
+    loadUser(username);
+  }
+
+  public void onRetryClicked(String username) {
+    loadUser(username);
+  }
+
+  private void loadUser(String username) {
+
+    getView().showLoading();
+    getView().hideError();
+
+    getUserByUsername.execute(new GetUserByUsername.Callback() {
+      @Override public void onUserLoaded(User user) {
+        getView().hideLoading();
+        getView().showUser(user);
+      }
+
+      @Override public void onItemNotFoundError() {
+        getView().hideLoading();
+        getView().showError();
+      }
+
+      @Override public void onUnknownError() {
+        getView().hideLoading();
+        getView().showError();
+      }
+    }, username);
+  }
+
   public interface View extends Presenter.View {
 
     void showUser(User user);
