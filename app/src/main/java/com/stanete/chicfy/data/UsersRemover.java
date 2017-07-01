@@ -9,7 +9,7 @@ import javax.inject.Inject;
  */
 public class UsersRemover {
 
-  @Inject public UsersRemover() {
+  public UsersRemover() {
   }
 
   /**

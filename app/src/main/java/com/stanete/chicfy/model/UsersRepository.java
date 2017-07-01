@@ -20,12 +20,14 @@ public class UsersRepository {
 
   private final List<User> users;
   private final List<User> deletedUsers;
+  private final UsersRemover usersRemover;
 
   public UsersRepository(UsersApiClient usersApiClient, UserPreferences userPreferences) {
     this.usersApiClient = usersApiClient;
     this.userPreferences = userPreferences;
+    this.usersRemover = new UsersRemover();
     this.users = new ArrayList<>();
-    this.deletedUsers = new ArrayList<>();
+    this.deletedUsers = userPreferences.getDeletedUsers();
   }
 
   public Result<List<User>, ResultError> getUsers(int page) {
@@ -35,10 +37,13 @@ public class UsersRepository {
     }
 
     try {
-      List<User> pagedUsers = usersApiClient.getUsers(RESULTS, page);
+      List<User> pagedUsers = usersApiClient.getUsers(RESULTS, page, null);
 
-      // TODO Make sure there are no duplicates.
-      // TODO Remove deleted users.
+      // Remove deleted users.
+      usersRemover.removeDeletedUsers(deletedUsers, pagedUsers);
+
+      // Remove duplicated users.
+      usersRemover.removeDuplicatedUsers(users, pagedUsers);
 
       users.addAll(pagedUsers);
 

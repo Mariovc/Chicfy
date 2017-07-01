@@ -8,6 +8,7 @@ import com.stanete.chicfy.exception.UnknownErrorException;
 import com.stanete.chicfy.model.User;
 import java.io.IOException;
 import java.util.List;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +20,6 @@ import static junit.framework.Assert.assertEquals;
 public class UsersApiClientTest {
 
   private UsersApiClient usersApiClient;
-
   private MockWebServer server;
 
   @Before public void setUp() throws Exception {
@@ -29,10 +29,14 @@ public class UsersApiClientTest {
     usersApiClient = new UsersApiClient(mockWebServerEndpoint);
   }
 
+  @After public void tearDown() throws Exception {
+    server.shutdown();
+  }
+
   @Test public void sendsGetAllRequestToTheCorrectEndpoint() throws Exception {
     enqueueMockResponse(200, MockResponseBodies.NO_USERS);
 
-    usersApiClient.getUsers(40, 0);
+    usersApiClient.getUsers(40, 0, null);
 
     RecordedRequest request = server.takeRequest();
     assertEquals("/?results=40&page=0", request.getPath());
@@ -44,13 +48,13 @@ public class UsersApiClientTest {
       throws Exception {
     enqueueMockResponse(418);
 
-    usersApiClient.getUsers(40, 0);
+    usersApiClient.getUsers(40, 0, null);
   }
 
   @Test public void parsesUsersProperlyGettingTenUsers() throws Exception {
     enqueueMockResponse(200, MockResponseBodies.TEN_USERS);
 
-    List<User> users = usersApiClient.getUsers(10, 0);
+    List<User> users = usersApiClient.getUsers(10, 0, null);
 
     assertEquals(users.size(), 10);
     assertUserContainsExpectedValues(users.get(0));
@@ -75,7 +79,8 @@ public class UsersApiClientTest {
     assertEquals(user.getEmail(), "liana.wiese@example.com");
     assertEquals(user.getLogin().getUsername(), "goldenbird143");
     assertEquals(user.getPhone(), "0138-1418286");
-    assertEquals(user.getPicture().getThumbnail(), "https://randomuser.me/api/portraits/thumb/women/49.jpg");
+    assertEquals(user.getPicture().getThumbnail(),
+        "https://randomuser.me/api/portraits/thumb/women/49.jpg");
     assertEquals(user.getPicture().getLarge(), "https://randomuser.me/api/portraits/women/49.jpg");
     assertEquals(user.getGender(), "female");
     assertEquals(user.getLocation().getCity(), "cochem-zell");

@@ -39,10 +39,15 @@ public class UsersApiClient {
     usersService = retrofit.create(UsersService.class);
   }
 
-  public List<User> getUsers(int results, int page)
+  /**
+   * @param results Number of users per page.
+   * @param page The page of users to be retrieved.
+   * @param seed Set to null if you want the users to be random each time.
+   */
+  public List<User> getUsers(int results, int page, String seed)
       throws UnknownErrorException, NetworkErrorException {
     try {
-      Response<Users> response = usersService.getUsers(results, page).execute();
+      Response<Users> response = usersService.getUsers(results, page, seed).execute();
       inspectResponseForErrors(response);
       return response.body().getUsers();
     } catch (IOException e) {

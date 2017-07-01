@@ -11,5 +11,5 @@ import retrofit2.http.Query;
 public interface UsersService {
 
   @GET("./") Call<Users> getUsers(@Query(UsersApiClientConfig.RESULTS) int results,
-      @Query(UsersApiClientConfig.PAGE) int page);
+      @Query(UsersApiClientConfig.PAGE) int page, @Query(UsersApiClientConfig.SEED) String seed);
 }
