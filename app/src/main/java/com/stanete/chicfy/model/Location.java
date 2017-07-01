@@ -9,6 +9,12 @@ public class Location {
   private String city;
   private String state;
 
+  public Location(String street, String city, String state) {
+    this.street = street;
+    this.city = city;
+    this.state = state;
+  }
+
   public String getStreet() {
     return street;
   }

@@ -20,7 +20,7 @@ import javax.inject.Singleton;
     this.application = application;
   }
 
-  @Provides @Singleton Context provideApplicationContext() {
+  @Provides @Singleton public Context provideApplicationContext() {
     return application;
   }
 

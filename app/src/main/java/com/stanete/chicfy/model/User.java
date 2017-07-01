@@ -14,6 +14,18 @@ public class User {
   private Picture picture;
   private String phone;
 
+  public User(String gender, Name name, Location location, String email, Login login,
+      String registered, Picture picture, String phone) {
+    this.gender = gender;
+    this.name = name;
+    this.location = location;
+    this.email = email;
+    this.login = login;
+    this.registered = registered;
+    this.picture = picture;
+    this.phone = phone;
+  }
+
   public String getGender() {
     return gender;
   }
