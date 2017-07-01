@@ -2,6 +2,7 @@ package com.stanete.chicfy;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.NoMatchingViewException;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -18,6 +19,7 @@ import com.stanete.chicfy.model.User;
 import com.stanete.chicfy.model.UsersRepository;
 import com.stanete.chicfy.recyclerview.RecyclerViewInteraction;
 import com.stanete.chicfy.ui.view.MainActivity;
+import com.stanete.chicfy.ui.view.UserDetailsActivity;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +30,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -98,6 +104,21 @@ import static org.mockito.Mockito.when;
 
     onView(withId(R.id.recycler_view)).check(
         matches(recyclerViewHasItemCount(RANDOM_NUMBER_OF_USERS + 1)));
+  }
+
+  @Test public void opensUserDetailsActivityOnRecyclerViewItemPictureTapped() {
+    List<User> users = givenThereAreSomeUsers(RANDOM_NUMBER_OF_USERS);
+    startActivity();
+
+    onView(withId(R.id.recycler_view)).
+        perform(RecyclerViewActions.actionOnItemAtPosition(0,
+            new ClickChildViewWithIdViewAction(R.id.sdv_picture)));
+
+    User userSelected = users.get(0);
+    intended(hasComponent(UserDetailsActivity.class.getCanonicalName()));
+    intended(hasExtra("username", userSelected.getLogin().getUsername()));
+    intended(hasExtra("full_name",
+        userSelected.getName().getFirst() + " " + userSelected.getName().getLast()));
   }
 
   private void givenThereAreNoUsers() {
